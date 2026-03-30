@@ -1,0 +1,182 @@
+/* FONTES */
+@import url('https://fonts.googleapis.com/css2?family=Jacquard+12&family=Xanh+Mono:ital@0;1&display=swap');
+
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+body{
+       background-image: url('resource/texture2.jpg');
+}
+
+:root{
+    --body-font: 'Jacquard 12';
+    --body-font2: 'Xanh Mono';
+}
+
+body::before{
+    background-image: url(resource/flower.png);
+    background-repeat: repeat-x;
+    background-size: contain;
+    display: block; /*Necessário para o pseudo-elemento aceitar width e height.*/
+    content: " "; /*Linha obrigatória pra o pseudo-elemento aparecer, mesmo vazio.*/
+    position: fixed; /*Faz a faixa de flores ficar grudada no topo mesmo quando o usuário rolar a página.*/
+
+    /* TOP E LEFT Posiciona o elemento no canto superior esquerdo da tela. */
+    top: 0;
+    left: 0;
+
+    /* A faixa ocupa toda a largura da página. */
+    width: 100%;
+
+    /* A altura da faixa de flores. Aumenta ou diminui conforme o tamanho do seu PNG */
+    height: 150px;
+
+}
+
+body::after{
+    content: "";
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* background-image: url('resource/texture.jpg'); */
+    opacity: 0.7;
+
+    /* textura ficar atrás do conteúdo da página */
+    z-index: -1;
+}   
+
+
+
+
+/* sem o flex no .conteudo, a seção ficaria grudada no topo da página. Sem o flex no .conteudo_principal, o texto e a imagem ficariam empilhados um embaixo do outro. */
+
+.conteudo{
+  display: flex;
+  /* automaticamente  o flex-direction:  é ROW */
+  align-items: center; /*eixo Y (CIMA/BAIXO) */
+  justify-content: center; /*eixo X (ESQUERDA/DIREITA) */
+  min-height: 100vh; /* 100% DA ALTURA DA TELA*/
+}
+
+.conteudo_principal{
+    /* CONTEUDO PRINCIPAL TEM DOIS FILHOS: CONTEUDO ESCRITO E IMAGEM */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 48px;
+}
+
+/* QUANDO A TELA FOR MENOR QUE 768PX */
+@media (max-width: 768px) {
+    .conteudo_principal {
+        flex-direction: column;
+        text-align: center;
+        gap: 24px;
+    }
+}
+
+.conteudo_principal_escrito{
+    /* O align-items padrão do FLEX É STRETCH, que estica os filhos pra ESQUERDA. */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-image: url('resource/paper.jpg');
+    padding: 20px 40px; /* cima/baixo | esquerda/direita */
+    border-style: dashed;
+    font-family: var(--body-font2);
+    font-size: 8px;
+    text-align: center;
+    
+    
+    
+
+}
+
+
+.imagem_principal img{
+     /* METODO BOM PARA RESPONSAVIDADE */
+    width: 100%; /*LARGURA   -> ocupa a largura do PAI*/
+    max-width: 300px; /*ALTURA  -> NUNCA PASSA DE 300 PX */
+    height: auto;
+    border: 2px solid white;
+    border-radius: 8px;
+    /* BORDER-RADIUS COM 50% FICA TOTALMENTE REDONDA*/
+}
+
+
+.botao_principal{
+    background-color: blueviolet;
+    color: aliceblue; /*COR DO TEXTO*/
+    border: NONE; /*remove borda padrão!*/
+    border-radius: 8px;
+    padding: 12px 24px; /*VERTICAL (12PX) HORIZONTAL (24PX)*/
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 16px;
+    align-self: center; /* SÓ O BOTÃO CENTRALIZA NO MEIO */
+    
+} 
+
+
+/* Cria um pseudo-elemento — um elemento visual "fantasma" que aparece antes do conteúdo de qualquer elemento com a classe .taped, sem precisar adicionar HTML extra. */
+.taped::before {
+/* Define a imagem da washi tape como fundo desse pseudo-elemento */
+  background-image:url('/resource/art-tapestry.png');
+
+
+  background-repeat:no-repeat;
+
+  /* O ::before por padrão é inline, mas precisa ser block para aceitar width e height */
+  display:block;
+
+  /* Linha obrigatória — pseudo-elementos só aparecem se tiverem um content */
+  content:" ";
+
+
+  /* Permite usar top e left para ajustar a posição da fitinha sem tirá-la do fluxo normal da página. */
+  position:relative;
+
+  /* Como a imagem é contain, ela vai caber dentro desse espaço sem distorcer. */
+  height:50px;
+  width:150px;
+
+  /* Redimensiona a imagem para caber inteira dentro do elemento, mantendo a proporção original. */
+background-size:contain;
+
+/* Sobe a fitinha 20px pra cima, dando aquele efeito de que ela está "colada" sobrepondo o elemento. */
+  top: -40px;
+
+  /* move a borda esquerda da tape até o meio do elemento pai */
+  left:50%;
+
+  /* recua a tape metade da própria largura para a esquerda */
+  transform: translateX(-50%) rotate(-5deg);
+
+  /* COLINHA 
+    rotate(-5deg) → levemente inclinada pra esquerda
+    rotate(5deg) → levemente inclinada pra direita
+    rotate(-10deg) → bem torta pra esquerda */
+}
+
+.taped::after {
+    background-image: url('resource/mag-rose.png') ;
+    background-repeat:no-repeat;
+    display:block;
+    content:" ";
+    position:relative;
+    height:80px;
+  width:80px;
+  background-size:contain;
+bottom: -75px;
+left:95%;
+transform: translateX(-50%) rotate(-10deg);
+}
